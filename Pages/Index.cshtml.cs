@@ -1,20 +1,30 @@
+using CreditCardWeb.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace CreditCardWeb.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
+        private readonly IHttpClientFactory _httpClientFactory;
 
-        public IndexModel(ILogger<IndexModel> logger)
+        public IndexModel(IHttpClientFactory httpClientFactory)
         {
-            _logger = logger;
+            _httpClientFactory = httpClientFactory;
         }
 
-        public void OnGet()
-        {
+        public List<CreditCardViewModel> CreditCards { get; set; }
 
+        public async Task OnGetAsync()
+        {
+            var client = _httpClientFactory.CreateClient();
+            var response = await client.GetAsync("https://localhost:7167/api/CreditCard");
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+                CreditCards = JsonConvert.DeserializeObject<List<CreditCardViewModel>>(jsonResponse);
+            }
         }
     }
 }
