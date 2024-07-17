@@ -1,0 +1,29 @@
+﻿@page
+@model CreditCardWeb.Pages.Statements.IndexModel
+@{
+    ViewData["Title"] = "Estado de Cuenta";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form method="get">
+    <div class="form-group">
+        <label for="CreditCardId">ID de Tarjeta de Crédito</label>
+        <input type="number" class="form-control" id="CreditCardId" name="CreditCardId" />
+    </div>
+    <button type="submit" class="btn btn-primary">Ver Estado de Cuenta</button>
+</form>
+
+@if (Model.Statement != null)
+{
+    <h2>Estado de Cuenta para la tarjeta @Model.Statement.CardNumber</h2>
+    <p>Nombre: @Model.Statement.FirstName @Model.Statement.LastName</p>
+    <p>Saldo Actual: @Model.Statement.CurrentBalance</p>
+    <p>Límite de Crédito: @Model.Statement.CreditLimit</p>
+    <p>Compras del Mes: @Model.Statement.TotalPurchasesCurrentMonth</p>
+    <p>Compras del Mes Anterior: @Model.Statement.TotalPurchasesLastMonth</p>
+    <p>Interés Bonificable: @Model.Statement.InterestBonificable</p>
+    <p>Cuota Mínima a Pagar: @Model.Statement.MinimumPayment</p>
+    <p>Monto Total a Pagar: @Model.Statement.TotalAmountDue</p>
+    <p>Monto Total de Contado con Intereses: @Model.Statement.TotalAmountWithInterest</p>
+}

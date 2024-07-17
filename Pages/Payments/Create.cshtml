@@ -1,0 +1,15 @@
+﻿@page "{id:int}"
+@model CreditCardWeb.Pages.Payments.CreateModel
+@{
+    ViewData["Title"] = "Registrar Pago";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form method="post">
+    <div class="form-group">
+        <label for="Amount">Monto</label>
+        <input type="number" class="form-control" id="Amount" name="Amount" required />
+    </div>
+    <button type="submit" class="btn btn-info">Registrar Pago</button>
+</form>

@@ -1,0 +1,27 @@
+﻿@page "{id:int}"
+@model CreditCardWeb.Pages.Transactions.IndexModel
+@{
+    ViewData["Title"] = "Historial de Transacciones";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Fecha</th>
+            <th>Descripción</th>
+            <th>Monto</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var transaction in Model.Transactions)
+        {
+            <tr>
+                <td>@transaction.TransactionDate.ToString("dd/MM/yyyy")</td>
+                <td>@transaction.Description</td>
+                <td>@transaction.Amount</td>
+            </tr>
+        }
+    </tbody>
+</table>
