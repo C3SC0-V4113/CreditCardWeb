@@ -24,7 +24,8 @@ namespace CreditCardWeb.Pages.Purchases
             {
                 return Page();
             }
-
+            Purchase.CreditCardId = id;
+            System.Diagnostics.Debug.WriteLine(id);
             var client = _httpClientFactory.CreateClient();
             var jsonContent = new StringContent(JsonConvert.SerializeObject(Purchase), Encoding.UTF8, "application/json");
             var response = await client.PostAsync("https://localhost:7167/api/purchase", jsonContent);
