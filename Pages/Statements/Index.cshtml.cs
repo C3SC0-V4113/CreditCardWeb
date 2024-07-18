@@ -31,20 +31,6 @@ namespace CreditCardWeb.Pages.Statements
                 Statement = JsonConvert.DeserializeObject<StatementViewModel>(jsonResponse);
             }
 
-            //var currentMonthResponse = await client.GetAsync($"https://localhost:7167/api/Statement/{id}/current-month");
-            //if (currentMonthResponse.IsSuccessStatusCode)
-            //{
-            //    var jsonResponse = await currentMonthResponse.Content.ReadAsStringAsync();
-            //    TotalCurrentMonth = decimal.Parse(jsonResponse);
-            //}
-
-            //var previousMonthResponse = await client.GetAsync($"https://localhost:7167/api/Statement/{id}/previous-month");
-            //if (previousMonthResponse.IsSuccessStatusCode)
-            //{
-            //    var jsonResponse = await previousMonthResponse.Content.ReadAsStringAsync();
-            //    TotalPreviousMonth = decimal.Parse(jsonResponse);
-            //}
-
         }
     }
 }
