@@ -12,10 +12,10 @@
         <p>Número de Tarjeta de Crédito: @Model.Statement.CardNumber.Substring(0, 4) **** **** @Model.Statement.CardNumber.Substring(12, 4)</p>
     </div>
     <div class="col-sm col-md-6">
-        <p>Saldo Actual: @Model.Statement.CurrentBalance</p>
-        <p>Limite: @Model.Statement.CreditLimit</p>
-        <p>Interés Bonificable: @Model.Statement.CreditLimit</p>
-        <p>Saldo Disponible: @Model.Statement.CreditLimit</p>
+        <p>Saldo Actual: $@Model.Statement.CurrentBalance</p>
+        <p>Limite: $@Model.Statement.CreditLimit</p>
+        <p>Interés Bonificable: $@Model.Statement.BonificableInterest</p>
+        <p>Saldo Disponible: $@Model.Statement.AvailableBalance</p>
     </div>
 </div>
 
@@ -40,7 +40,7 @@
                     <td>@purchase.PurchaseId</td>
                     <td>@purchase.PurchaseDate.ToShortDateString()</td>
                     <td>@purchase.Description</td>
-                    <td>@purchase.Amount</td>
+                    <td>$@purchase.Amount</td>
                 </tr>
             }
         </tbody>
@@ -48,8 +48,8 @@
     </div>
 
     <div>
-        <p>Compras del mes actual: @Model.TotalCurrentMonth</p>
-        <p>Compras del mes pasado: @Model.TotalPreviousMonth</p>
+        <p>Compras del mes actual: $@Model.Statement.currentMonthTotal</p>
+        <p>Compras del mes pasado: $@Model.Statement.previousMonthTotal</p>
     </div>
 }
 else

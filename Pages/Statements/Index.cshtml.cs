@@ -15,7 +15,7 @@ namespace CreditCardWeb.Pages.Statements
             _httpClientFactory = httpClientFactory;
         }
 
-        public CreditCardViewModel Statement { get; set; }
+        public StatementViewModel Statement { get; set; }
         public decimal TotalCurrentMonth { get; set; }
         public decimal TotalPreviousMonth { get; set; }
 
@@ -24,32 +24,26 @@ namespace CreditCardWeb.Pages.Statements
 
             var client = _httpClientFactory.CreateClient();
             var response = await client.GetAsync($"https://localhost:7167/api/Statement/{id}");
-            System.Diagnostics.Debug.WriteLine("HOLAAAAAAAAAAAA");
 
             if (response.IsSuccessStatusCode)
             {
                 var jsonResponse = await response.Content.ReadAsStringAsync();
-                System.Diagnostics.Debug.WriteLine(jsonResponse);
-                Statement = JsonConvert.DeserializeObject<CreditCardViewModel>(jsonResponse);
+                Statement = JsonConvert.DeserializeObject<StatementViewModel>(jsonResponse);
             }
 
-            var currentMonthResponse = await client.GetAsync($"https://localhost:7167/api/Statement/{id}/current-month");
-            if (currentMonthResponse.IsSuccessStatusCode)
-            {
-                var jsonResponse = await currentMonthResponse.Content.ReadAsStringAsync();
-                System.Diagnostics.Debug.WriteLine(jsonResponse);
+            //var currentMonthResponse = await client.GetAsync($"https://localhost:7167/api/Statement/{id}/current-month");
+            //if (currentMonthResponse.IsSuccessStatusCode)
+            //{
+            //    var jsonResponse = await currentMonthResponse.Content.ReadAsStringAsync();
+            //    TotalCurrentMonth = decimal.Parse(jsonResponse);
+            //}
 
-                TotalCurrentMonth = decimal.Parse(jsonResponse);
-            }
-
-            var previousMonthResponse = await client.GetAsync($"https://localhost:7167/api/Statement/{id}/previous-month");
-            if (previousMonthResponse.IsSuccessStatusCode)
-            {
-                var jsonResponse = await previousMonthResponse.Content.ReadAsStringAsync();
-                System.Diagnostics.Debug.WriteLine(jsonResponse);
-
-                TotalPreviousMonth = decimal.Parse(jsonResponse);
-            }
+            //var previousMonthResponse = await client.GetAsync($"https://localhost:7167/api/Statement/{id}/previous-month");
+            //if (previousMonthResponse.IsSuccessStatusCode)
+            //{
+            //    var jsonResponse = await previousMonthResponse.Content.ReadAsStringAsync();
+            //    TotalPreviousMonth = decimal.Parse(jsonResponse);
+            //}
 
         }
     }
