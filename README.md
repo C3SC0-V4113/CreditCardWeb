@@ -34,3 +34,8 @@ Una vez que la aplicación esté corriendo, puedes acceder a la aplicación web 
 - Navega a la página de Purchases para crear una compra
 - Navega a la página de Payments para crear un pago
 - Navega a la página de Transactions para ver las transacciones de la tarjeta de crédito.
+
+## Enlaces
+- [Postman](http://https://documenter.getpostman.com/view/24591531/2sA3kSo3ZB "Postman")
+- [Backend .NET](http://https://github.com/C3SC0-V4113/CreditCardAPI "Backend .NET")
+- [Frontend Razor](http://https://github.com/C3SC0-V4113/CreditCardWeb "Frontend Razor")
