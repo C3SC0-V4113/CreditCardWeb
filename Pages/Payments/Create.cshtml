@@ -1,15 +1,31 @@
 ﻿@page "{id:int}"
 @model CreditCardWeb.Pages.Payments.CreateModel
 @{
-    ViewData["Title"] = "Registrar Pago";
+    ViewData["Title"] = "Registrar Pago de TC";
 }
 
 <h1>@ViewData["Title"]</h1>
 
+<div class="row row-cols-2 row-cols-lg-3">
+    <span class="col">Nombre del Cliente:</span>
+    <span class="col">@Model.CreditCard.FirstName @Model.CreditCard.LastName</span>
+</div>
+<div class="row row-cols-2 row-cols-lg-3 mb-2">
+    <span class="col">Número de Tarjeta de Crédito:</span>
+    <span class="col">@Model.CreditCard.CardNumber.Substring(0, 4) **** **** @Model.CreditCard.CardNumber.Substring(12, 4)</span>
+</div>
+
 <form method="post">
+    <div class="form-group">
+        <label for="PaymentDate">Fecha de Compra</label>
+        <input type="date" class="form-control" id="PaymentDate" name="PaymentDate" required />
+    </div>
     <div class="form-group">
         <label for="Amount">Monto</label>
         <input type="number" class="form-control" id="Amount" name="Amount" required />
     </div>
-    <button type="submit" class="btn btn-info">Registrar Pago</button>
+    <div class="mt-4">
+        <button type="submit" class="btn btn-success">Guardar Pago</button>
+        <a class="btn btn-warning" asp-page="/Index">Cancelar</a>
+    </div>
 </form>
