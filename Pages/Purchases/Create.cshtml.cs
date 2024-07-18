@@ -17,6 +17,19 @@ namespace CreditCardWeb.Pages.Purchases
 
         [BindProperty]
         public PurchaseViewModel Purchase { get; set; }
+        public CreditCardViewModel CreditCard { get; set; }
+
+        public async Task OnGetAsync(int id)
+        {
+            var client = _httpClientFactory.CreateClient();
+            var response = await client.GetAsync($"https://localhost:7167/api/CreditCard/{id}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+                CreditCard = JsonConvert.DeserializeObject<CreditCardViewModel>(jsonResponse);
+            }
+        }
 
         public async Task<IActionResult> OnPostAsync(int id)
         {
