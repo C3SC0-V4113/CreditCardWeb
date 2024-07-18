@@ -28,11 +28,11 @@ namespace CreditCardWeb.Pages.Payments
             Payment.CreditCardId = id;
             var client = _httpClientFactory.CreateClient();
             var jsonContent = new StringContent(JsonConvert.SerializeObject(Payment), Encoding.UTF8, "application/json");
-            var response = await client.PostAsync("https://localhost:5001/api/payment", jsonContent);
+            var response = await client.PostAsync("https://localhost:7167/api/Payment", jsonContent);
 
             if (response.IsSuccessStatusCode)
             {
-                return RedirectToPage("/CreditCards/Index");
+                return RedirectToPage("/Index");
             }
 
             return Page();

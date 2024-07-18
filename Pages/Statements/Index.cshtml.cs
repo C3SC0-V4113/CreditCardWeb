@@ -2,6 +2,7 @@ using CreditCardWeb.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
+using System.Net.Http;
 
 namespace CreditCardWeb.Pages.Statements
 {
@@ -14,20 +15,42 @@ namespace CreditCardWeb.Pages.Statements
             _httpClientFactory = httpClientFactory;
         }
 
-        public CreditCardStatementViewModel Statement { get; set; }
+        public CreditCardViewModel Statement { get; set; }
+        public decimal TotalCurrentMonth { get; set; }
+        public decimal TotalPreviousMonth { get; set; }
 
-        public async Task OnGetAsync(int? creditCardId)
+        public async Task OnGetAsync(int id)
         {
-            if (creditCardId.HasValue)
+
+            var client = _httpClientFactory.CreateClient();
+            var response = await client.GetAsync($"https://localhost:7167/api/Statement/{id}");
+            System.Diagnostics.Debug.WriteLine("HOLAAAAAAAAAAAA");
+
+            if (response.IsSuccessStatusCode)
             {
-                var client = _httpClientFactory.CreateClient();
-                var response = await client.GetAsync($"https://localhost:5001/api/creditcard/{creditCardId}");
-                if (response.IsSuccessStatusCode)
-                {
-                    var jsonResponse = await response.Content.ReadAsStringAsync();
-                    Statement = JsonConvert.DeserializeObject<CreditCardStatementViewModel>(jsonResponse);
-                }
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+                System.Diagnostics.Debug.WriteLine(jsonResponse);
+                Statement = JsonConvert.DeserializeObject<CreditCardViewModel>(jsonResponse);
             }
+
+            var currentMonthResponse = await client.GetAsync($"https://localhost:7167/api/Statement/{id}/current-month");
+            if (currentMonthResponse.IsSuccessStatusCode)
+            {
+                var jsonResponse = await currentMonthResponse.Content.ReadAsStringAsync();
+                System.Diagnostics.Debug.WriteLine(jsonResponse);
+
+                TotalCurrentMonth = decimal.Parse(jsonResponse);
+            }
+
+            var previousMonthResponse = await client.GetAsync($"https://localhost:7167/api/Statement/{id}/previous-month");
+            if (previousMonthResponse.IsSuccessStatusCode)
+            {
+                var jsonResponse = await previousMonthResponse.Content.ReadAsStringAsync();
+                System.Diagnostics.Debug.WriteLine(jsonResponse);
+
+                TotalPreviousMonth = decimal.Parse(jsonResponse);
+            }
+
         }
     }
 }

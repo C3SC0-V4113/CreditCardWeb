@@ -8,5 +8,6 @@
         public string LastName { get; set; }
         public decimal CurrentBalance { get; set; }
         public decimal CreditLimit { get; set; }
+        public List<PurchaseViewModel> Purchases { get; set; }
     }
 }

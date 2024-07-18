@@ -3,7 +3,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 
-builder.Services.AddHttpClient();
+builder.Services.AddHttpClient(
+    "CreditCardAPI", client =>
+    {
+        client.BaseAddress = new Uri("https://localhost:7167/");
+    });
 
 var app = builder.Build();
 
@@ -27,10 +31,5 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapRazorPages();
-
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapRazorPages();
-});
 
 app.Run();

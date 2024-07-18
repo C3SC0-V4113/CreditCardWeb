@@ -19,7 +19,7 @@ namespace CreditCardWeb.Pages.Transactions
         public async Task OnGetAsync(int id)
         {
             var client = _httpClientFactory.CreateClient();
-            var response = await client.GetAsync($"https://localhost:5001/api/transaction/{id}");
+            var response = await client.GetAsync($"https://localhost:7167/api/Transaction/{id}");
             if (response.IsSuccessStatusCode)
             {
                 var jsonResponse = await response.Content.ReadAsStringAsync();

@@ -25,14 +25,13 @@ namespace CreditCardWeb.Pages.Purchases
                 return Page();
             }
 
-            Purchase.CreditCardId = id;
             var client = _httpClientFactory.CreateClient();
             var jsonContent = new StringContent(JsonConvert.SerializeObject(Purchase), Encoding.UTF8, "application/json");
-            var response = await client.PostAsync("https://localhost:5001/api/purchase", jsonContent);
+            var response = await client.PostAsync("https://localhost:7167/api/purchase", jsonContent);
 
             if (response.IsSuccessStatusCode)
             {
-                return RedirectToPage("/CreditCards/Index");
+                return RedirectToPage("/Index");
             }
 
             return Page();

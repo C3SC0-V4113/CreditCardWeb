@@ -6,29 +6,31 @@
 
 <h1>@ViewData["Title"]</h1>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Número de Tarjeta</th>
-            <th>Nombre</th>
-            <th>Apellido</th>
-            <th>Opciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var card in Model.CreditCards)
-        {
+<div class ="table-responsive">
+    <table class="table">
+        <thead class="table-secondary">
             <tr>
-                <td>@card.CardNumber.Substring(0, 4) **** **** @card.CardNumber.Substring(12, 4)</td>
-                <td>@card.FirstName</td>
-                <td>@card.LastName</td>
-                <td>
-                    <a asp-page="/Statements/Details" asp-route-id="@card.CreditCardId" class="btn btn-primary">Estado de Cuenta</a>
-                    <a asp-page="/Purchases/Create" asp-route-id="@card.CreditCardId" class="btn btn-success">Registrar Compra</a>
-                    <a asp-page="/Payments/Create" asp-route-id="@card.CreditCardId" class="btn btn-info">Registrar Pago</a>
-                    <a asp-page="/Transactions/Index" asp-route-id="@card.CreditCardId" class="btn btn-secondary">Transacciones</a>
-                </td>
+                <th>Número de Tarjeta</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Opciones</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var card in Model.CreditCards)
+            {
+                <tr>
+                    <td>@card.CardNumber.Substring(0, 4) **** **** @card.CardNumber.Substring(12, 4)</td>
+                    <td>@card.FirstName</td>
+                    <td>@card.LastName</td>
+                    <td class="row g-1 gap-lg-2 gap-1 align-items-center">
+                        <a asp-page="/Statements/Index" asp-route-id="@card.CreditCardId" class="col-sm col-lg-2 btn btn-primary">Estado de Cuenta</a>
+                        <a asp-page="/Purchases/Create" asp-route-id="@card.CreditCardId" class="col-sm col-lg-3 btn btn-success">Registrar Compra</a>
+                        <a asp-page="/Payments/Create" asp-route-id="@card.CreditCardId" class="col-sm col-lg-2 btn btn-info">Registrar Pago</a>
+                        <a asp-page="/Transactions/Index" asp-route-id="@card.CreditCardId" class="col-sm col-lg-3 btn btn-secondary">Transacciones</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

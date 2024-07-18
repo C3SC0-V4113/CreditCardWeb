@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "{id:int}"
 @model CreditCardWeb.Pages.Statements.IndexModel
 @{
     ViewData["Title"] = "Estado de Cuenta";
@@ -6,24 +6,39 @@
 
 <h1>@ViewData["Title"]</h1>
 
-<form method="get">
-    <div class="form-group">
-        <label for="CreditCardId">ID de Tarjeta de Crédito</label>
-        <input type="number" class="form-control" id="CreditCardId" name="CreditCardId" />
-    </div>
-    <button type="submit" class="btn btn-primary">Ver Estado de Cuenta</button>
-</form>
+<h2>Statement for @Model.Statement.FirstName @Model.Statement.LastName</h2>
+<p>Card Number: @Model.Statement.CardNumber</p>
+<p>Current Balance: @Model.Statement.CurrentBalance</p>
+<p>Credit Limit: @Model.Statement.CreditLimit</p>
 
-@if (Model.Statement != null)
+@if (Model.Statement.Purchases !=null)
 {
-    <h2>Estado de Cuenta para la tarjeta @Model.Statement.CardNumber</h2>
-    <p>Nombre: @Model.Statement.FirstName @Model.Statement.LastName</p>
-    <p>Saldo Actual: @Model.Statement.CurrentBalance</p>
-    <p>Límite de Crédito: @Model.Statement.CreditLimit</p>
-    <p>Compras del Mes: @Model.Statement.TotalPurchasesCurrentMonth</p>
-    <p>Compras del Mes Anterior: @Model.Statement.TotalPurchasesLastMonth</p>
-    <p>Interés Bonificable: @Model.Statement.InterestBonificable</p>
-    <p>Cuota Mínima a Pagar: @Model.Statement.MinimumPayment</p>
-    <p>Monto Total a Pagar: @Model.Statement.TotalAmountDue</p>
-    <p>Monto Total de Contado con Intereses: @Model.Statement.TotalAmountWithInterest</p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Description</th>
+                <th>Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var purchase in Model.Statement.Purchases)
+            {
+                <tr>
+                    <td>@purchase.PurchaseDate.ToShortDateString()</td>
+                    <td>@purchase.Description</td>
+                    <td>@purchase.Amount</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div>
+        <p>Total Current Month: @Model.TotalCurrentMonth</p>
+        <p>Total Previous Month: @Model.TotalPreviousMonth</p>
+    </div>
+}
+else
+{
+    <p>No purchases found for this credit card.</p>
 }
