@@ -1,27 +1,40 @@
 ﻿@page "{id:int}"
 @model CreditCardWeb.Pages.Transactions.IndexModel
 @{
-    ViewData["Title"] = "Historial de Transacciones";
+    ViewData["Title"] = "Transacciones";
 }
 
 <h1>@ViewData["Title"]</h1>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Fecha</th>
-            <th>Descripción</th>
-            <th>Monto</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var transaction in Model.Transactions)
-        {
+<div class="row row-cols-2 row-cols-lg-3">
+    <span class="col">Nombre del Cliente:</span>
+    <span class="col">@Model.CreditCard.FirstName @Model.CreditCard.LastName</span>
+</div>
+<div class="row row-cols-2 row-cols-lg-3 mb-2">
+    <span class="col">Número de Tarjeta de Crédito:</span>
+    <span class="col">@Model.CreditCard.CardNumber.Substring(0, 4) **** **** @Model.CreditCard.CardNumber.Substring(12, 4)</span>
+</div>
+
+<div class="table-responsive">
+    <table class="table">
+        <thead class="table-secondary">
             <tr>
-                <td>@transaction.TransactionDate.ToString("dd/MM/yyyy")</td>
-                <td>@transaction.Description</td>
-                <td>@transaction.Amount</td>
+                <th>Date</th>
+                <th>Description</th>
+                <th>Charge</th>
+                <th>Credit</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var transaction in Model.Transactions)
+            {
+                <tr>
+                    <td>@transaction.TransactionDate.ToShortDateString()</td>
+                    <td>@transaction.Description</td>
+                    <td>@transaction.Charge?.ToString("C")</td>
+                    <td>@transaction.Credit?.ToString("C")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
